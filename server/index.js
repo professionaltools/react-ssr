@@ -1,21 +1,26 @@
 import React from 'react'
+import {StaticRouter} from 'react-router-dom'
+import {Provider} from 'react-redux'
 import {renderToString} from 'react-dom/server'
 import express from 'express'
 import App from '../src/App.js'
+import store from '../src/store/store'
 
 const app = express()
 app.use(express.static("public"))
-app.get('/', (req, res) => {
-    // const Page = <App title="dno"></App>
-    //吧react组件，解析成html
-    const content = renderToString(App)
+app.get('*', (req, res) => {
+    const content = renderToString(
+        <Provider store={store}>
+            <StaticRouter location={req.url}>
+                {App}
+            </StaticRouter>
+        </Provider>
+    )
+    console.log(content)
     res.send(`
-    <html lang="en">
+    <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
-        <meta http-equiv=X-UA-Compatible content="ie=edge">
         <title>Title</title>
     </head>
     <body>
