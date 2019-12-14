@@ -1,30 +1,31 @@
 import axios from 'axios'
 //首页逻辑
-const GET_LIST = 'INDEX/GET_LIST'
-const changeList = list => ({
+const GET_LIST = 'HOME/GET_LIST'
+const changeList = data => ({
     type: GET_LIST,
-    list,
+    data,
 })
-export const getIndexList = server => {
+export const getHomeList = server => {
     return (dispatch, getState, axiosInstance) => {
-        return axios.get('http://localhost:9090/course/list').then(res => {
-            const {list} = res.data
-            console.log('list',list)
-            dispatch(changeList(list))
+        return axios.get('http://localhost:9090/home/list').then(res => {
+            console.log('res',res.data)
+            const {data} = res.data
+            console.log('list',data)
+            dispatch(changeList(data))
         }).catch(()=>{
-            dispatch(changeList([]))
+            dispatch(changeList({}))
         })
     }
 }
 const defaultState = {
-    list: []
+    userInfo: {}
 }
 export default (state = defaultState, action) => {
     switch (action.type) {
         case GET_LIST:
             const newState = {
                 ...state,
-                list: action.list
+                userInfo: action.data
             }
             return newState
         default:

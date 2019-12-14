@@ -3,10 +3,14 @@
  */
 let express = require('express')
 const app = express()
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With")
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next()
+})
 app.get('/course/list', (req, res) => {
-    res.header('Access-Control-Allow-Origin','*')
-    res.header('Access-Control-Allow-Methods','GET,POST')
-    res.header('Content-Type','application/json;charset=utf-8')
     res.json({
         code: 0,
         list: [
@@ -19,6 +23,14 @@ app.get('/course/list', (req, res) => {
                 id: 2,
             }
         ]
+    })
+})
+app.get('/home/list', (req, res) => {
+    res.json({
+        code: 0,
+        data: {
+            name:'dno'
+        }
     })
 })
 app.listen(9090,()=>{
