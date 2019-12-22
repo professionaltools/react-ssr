@@ -23,6 +23,15 @@ module.exports = {
             ["@babel/preset-env"]
           ]
         }
+      },
+      {
+        test:/\.css$/,
+        use:['isomorphic-style-loader',{
+          loader:'css-loader',
+          options:{
+            modules:true
+          }
+        }]
       }
     ]
   }

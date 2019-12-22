@@ -5,8 +5,7 @@ import {getIndexList} from '../store/index'
 function Index(props) {
     const [count, setCount] = useState(1)
     useEffect(() => {
-        console.log(props)
-        if (!props.list.lang) {
+        if (!props.list.length) {
             props.getIndexList()
         }
     }, [])
@@ -28,7 +27,6 @@ Index.loadData = store => {
 }
 export default connect(
     state => {
-        console.log(state.index.list)
         return {list: state.index.list}
     }, {getIndexList}
 )(Index)

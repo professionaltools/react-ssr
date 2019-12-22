@@ -1,11 +1,15 @@
 import React from 'react'
-
-function About() {
+import styles from './about.css'
+import WithStyle from '../WithStyle'
+function About(props) {
+  // if (props.staticContext) {
+  //   props.staticContext.css.push(styles._getCss())
+  // }
     return (
         <div>
-            <h2>about</h2>
+            <h2 className={styles.title}>about</h2>
         </div>
     )
 }
 
-export default About
+export default WithStyle(About,styles)

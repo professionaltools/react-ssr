@@ -7,14 +7,13 @@ const changeList = data => ({
 })
 export const getHomeList = server => {
     return (dispatch, getState, axiosInstance) => {
-        return axios.get('http://localhost:9090/home/list').then(res => {
-            console.log('res',res.data)
+        return axios.get('/api/home/list').then(res => {
             const {data} = res.data
-            console.log('list',data)
             dispatch(changeList(data))
-        }).catch(()=>{
-            dispatch(changeList({}))
         })
+        //     .catch(()=>{
+        //     dispatch(changeList({}))
+        // })
     }
 }
 const defaultState = {

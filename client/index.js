@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {BrowserRouter as Router,Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import routes from '../src/App'
 import {getClientStore} from '../src/store/store'
 import Header from '../src/components/Header'
@@ -10,13 +10,23 @@ import Header from '../src/components/Header'
 * 这里我们需要做的是注入的方式
 * */
 const Page = (
-    <Provider store={getClientStore()}>
-        <Router>
-            <Header/>
-            {routes.map(route=><Route {...route}/>)}
-        </Router>
-    </Provider>)
-ReactDOM.hydrate(
+  <Provider store={getClientStore()}>
+    <Router>
+      <Header/>
+      <Switch>
+        {routes.map((route,index) => <Route key={index} {...route}/>)}
+      </Switch>
+    </Router>
+  </Provider>)
+
+if (window.__context) {
+  ReactDOM.hydrate(
     Page,
     document.getElementById('root')
-)
+  )
+} else {
+  ReactDOM.render(
+    Page,
+    document.getElementById('root')
+  )
+}

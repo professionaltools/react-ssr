@@ -12,6 +12,7 @@ class Header extends React.PureComponent {
                 <Link to='/'>home</Link>
                 <Link to='/about'>abut</Link>
                 <Link to='/home'>home</Link>
+                <Link to='/home1111'>404</Link>
             </div>
         )
     }

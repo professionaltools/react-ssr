@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 //首页逻辑
 const GET_LIST = 'INDEX/GET_LIST'
 const changeList = list => ({
@@ -6,14 +6,14 @@ const changeList = list => ({
     list,
 })
 export const getIndexList = server => {
-    return (dispatch, getState, axiosInstance) => {
-        return axios.get('http://localhost:9090/course/list').then(res => {
+    return (dispatch, getState, $axios) => {
+        return $axios.get('/api/course/list').then(res => {
             const {list} = res.data
-            console.log('list',list)
             dispatch(changeList(list))
-        }).catch(()=>{
-            dispatch(changeList([]))
         })
+        //     .catch(()=>{
+        //     dispatch(changeList([]))
+        // })
     }
 }
 const defaultState = {

@@ -1,5 +1,6 @@
 const path = require("path")
-//服务端的webpack
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+//客户端的webpack
 module.exports = {
     mode: "development",
     entry: './client/index',
@@ -19,7 +20,26 @@ module.exports = {
                         ["@babel/preset-env"]
                     ]
                 }
+            },
+            {
+                test:/\.css$/,
+                use:[
+                  'style-loader',
+                    {
+                        loader:'css-loader',
+                        options:{
+                            modules:true
+                        }
+                    }
+                ]
             }
         ]
-    }
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+          template: "./src/index.csr.html",
+          filename: "index.csr.html",
+          inject: true
+      })
+    ]
 }
